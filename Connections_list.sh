@@ -1,31 +1,31 @@
 #!/bin/sh
 
 set -- $(cat /DB/_DB.003/var/register/system/dhcp/dhcpd.leases | grep "client-hostname" -B 9 | grep -E -o "[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}")
-#	^^Make DHCP IP's which have a corresponding hostname into positional parameters
+# Make DHCP IP's which have a corresponding hostname into positional parameters
 
 array=()
 for (( IP_array_var="$#"; IP_array_var>0; IP_array_var-- )); do
         array+=("$1")
         shift
 done
-#	^^Make positional parameters into a positional array
+# Make positional parameters into a positional array
 
 set -- $(cat /DB/_DB.003/var/register/system/dhcp/dhcpd.leases | grep "client-hostname" | cut -d'"' -f2)
-#	^^Make DHCP leases with hostnames into positional parameters
+# Make DHCP leases with hostnames into positional parameters
 
 array2=()
 for (( Hostname_array_var="$#"; Hostname_array_var>0; Hostname_array_var-- )); do
         array2+=("$1")
         shift
 done
-#	^^Make new positional parameters into Hostname_array
+# Make new positional parameters into Hostname_array
 
 
 mkdir -p /tmp/lan_dir
 
 array[${#array[*]}]="[Static LAN IP]"
 array2[${#array2[*]}]="[Hostname of static IP]"
-#	^^Add static DHCP's
+# Add static DHCP's
 
 set -- $(ls /tmp/lan_dir/)
 lan_dir_array=() 
@@ -33,7 +33,7 @@ for (( a="$#"; a>0; a-- )); do
         lan_dir_array+=("$1")
         shift
 done
-#	^^Make newly created files into a lan_dir_array
+# Make newly created files into a lan_dir_array
 
 
 #for (( Hostname_array_var=${#array2[@]}; Hostname_array_var>=0; Hostname_array_var-- ;)) do
@@ -68,7 +68,7 @@ for (( a="$#"; a>0; a-- )); do
         array3+=("$1")
         shift
 done
-#       ^^Make newly created files into array3
+# Make newly created files into array3
 
 
 for (( b=${#array3[@]}; b>=0; b-- )) ; do
