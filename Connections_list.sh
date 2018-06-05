@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 set -- $(cat /DB/_DB.003/var/register/system/dhcp/dhcpd.leases | grep "client-hostname" -B 9 | grep -E -o "[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}")
 # Make DHCP IP's which have a corresponding hostname into positional parameters
